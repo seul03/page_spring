@@ -1,0 +1,59 @@
+package board;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.stereotype.Repository;
+import java.util.List;
+import board.BoardVO;
+
+@Repository
+public class BoardDaoMybatis implements BoardDao {
+
+	private SqlSessionTemplate sqlSessionTemplate;
+
+	public BoardDaoMybatis(SqlSessionTemplate sqlSessionTemplate) {
+		this.sqlSessionTemplate = sqlSessionTemplate;
+	}
+
+	public void setSqlSessionTemplate(SqlSessionTemplate sqlSessionTemplate) {
+		this.sqlSessionTemplate = sqlSessionTemplate;
+	}
+
+	@Override
+	public List<BoardVO> list() throws Exception {
+		return sqlSessionTemplate.selectList("list");
+	}
+
+	@Override
+	public int delete(BoardVO boardVO) throws Exception{
+		return sqlSessionTemplate.delete("delete", boardVO);
+	}
+
+	@Override
+	public int deleteAll() throws Exception{
+		return sqlSessionTemplate.delete("deleteAll");
+	}
+
+	@Override
+	public int update(BoardVO boardVO) throws Exception{
+		return sqlSessionTemplate.update("update", boardVO);
+	}
+
+	@Override
+	public void insert(BoardVO boardVO) throws Exception{
+		sqlSessionTemplate.insert("insert", boardVO);
+	}
+
+	@Override
+	public BoardVO select(int seq) throws Exception{
+		return sqlSessionTemplate.selectOne("select", seq);
+	}
+
+	@Override
+	public int updateReadCount(int seq) throws Exception{
+		return sqlSessionTemplate.update("updateCount", seq);
+	}
+	@Override
+	public List<BoardVO> readReply(int seq) throws Exception{
+		return sqlSessionTemplate.selectList("replyMapper.readReply", seq);		
+	}
+}
