@@ -3,6 +3,8 @@ package board;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 import java.util.List;
+import java.util.Map;
+
 import board.BoardVO;
 
 @Repository
@@ -55,5 +57,16 @@ public class BoardDaoMybatis implements BoardDao {
 	@Override
 	public List<BoardVO> readReply(int seq) throws Exception{
 		return sqlSessionTemplate.selectList("replyMapper.readReply", seq);		
+	}
+	
+	@Override
+	public void insertFile(Map <String, Object> map) throws Exception{
+		sqlSessionTemplate.insert("insertFile", map);
+	}
+
+	@Override
+	public void inserFile(Map<String, Object> map) throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 }

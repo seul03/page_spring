@@ -21,6 +21,19 @@
                        SELECT NVL(MAX(seq), 0) FROM BOARD
                 </selectKey>
         </insert>
+        <insert id="insertFile" parameterType="hashMap">
+		INSERT INTO MP_FILE(
+			NUM,
+			SEQ,
+			FILE_NAME,
+			FILE_SIZE
+		)VALUES(
+			NUM.NEXTVAL,
+			#{SEQ},
+			#{FILE_NAME},
+			#{FILE_SIZE}
+		)
+    </insert>
         
         <update id="update" parameterType="boardVO">
                UPDATE BOARD SET title= #{title},

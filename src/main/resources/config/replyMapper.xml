@@ -4,7 +4,7 @@
 
 <mapper namespace="replyMapper">
 
-    <select id="readReply" resultType="kr.co.vo.BoardVO">
+    <select id="readReply" resultType="board.BoardVO">
          SELECT NUM, CON, WRITE FROM BOARD WHERE SEQ = #{SEQ}
     </select>
 

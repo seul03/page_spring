@@ -19,7 +19,7 @@
        <mvc:annotation-driven/>
        
        <mvc:default-servlet-handler />
-       
+              
        <mvc:view-resolvers>
               <mvc:jsp prefix="/WEB-INF/view/"/>
        </mvc:view-resolvers>

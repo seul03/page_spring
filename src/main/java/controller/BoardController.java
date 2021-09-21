@@ -2,6 +2,8 @@ package controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import board.BoardVO;
 import service.BoardService;
@@ -40,11 +43,11 @@ public class BoardController {
 		return "/write";
 	}
 	@RequestMapping(value="/write", method=RequestMethod.POST)
-	public String write(BoardVO boardVO, BindingResult bindingResult) throws Exception{
+	public String write(BoardVO boardVO, BindingResult bindingResult, MultipartHttpServletRequest mpRequest) throws Exception{
 		   if(bindingResult.hasErrors()) {
 			   return "/write";
 		   }
-		   boardService.write(boardVO);
+		   boardService.write(boardVO, mpRequest);
 		   return "redirect:/list";
 	}
 	@RequestMapping(value="/edit/{seq}", method = RequestMethod.GET)
@@ -56,7 +59,7 @@ public class BoardController {
 	@RequestMapping(value="/edit/{seq}", method = RequestMethod.POST)
 	public String edit(@Valid @ModelAttribute BoardVO boardVO,
 		    BindingResult result, int pwd, 
-		    SessionStatus sessionStatus, Model model) {
+		    SessionStatus sessionStatus, Model model) throws Exception {
 			if(result.hasErrors()) {
 				return "/edit";
 			} else {
@@ -75,7 +78,7 @@ public class BoardController {
 		return "/delete";
 	}
 	@RequestMapping(value="/board/delete", method=RequestMethod.POST)
-	public String delete(int seq, int pwd, Model model) {
+	public String delete(int seq, int pwd, Model model) throws Exception {
 		   int rowCount;
 		   BoardVO boardVO = new BoardVO();
 		   boardVO.setSeq(seq);

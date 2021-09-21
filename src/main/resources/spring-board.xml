@@ -58,12 +58,9 @@
                     <constructor-arg ref="sqlSessionFactory" />
                     </bean>
                     
-                    <bean id="boardDao" class="board.BoardDaoMybatis">
-                           <constructor-arg ref="sqlSessionTemplate" />
-                    </bean>
-                    <bean id="boardService" class="service.BoardServiceImpl">
-                           <property name="boardDao" ref="boardDao" />
-                    </bean>
+               <context:component-scan base-package="util"></context:component-scan>
+              
+
               </beans>        
               
               

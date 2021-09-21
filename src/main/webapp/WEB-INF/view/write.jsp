@@ -9,7 +9,7 @@
 <title>글 작성</title>
 </head>
 <body>
-       <form action="<c:url value="/board/write" /> " method="POST" />
+       <form action="<c:url value="/board/write" /> " method="POST" enctype="multipart/form-data" />
               <table border="1">
                      <tr>
                             <th><form:label path="title">제목</form:label><th>
@@ -31,6 +31,11 @@
                             <td><form:input path="password"/>
                             <form:errors path="password" /></td>
                      </tr>
+                     <tr>
+                            <td>
+                            <input type="file" name="file">
+                            </td>
+                     </tr>                                
                </table>
                <div>
                        <input type="submit" value="등록">

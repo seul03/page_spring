@@ -1,6 +1,8 @@
 package board;
 
 import java.util.List;
+import java.util.Map;
+
 import board.BoardVO;
 
 public interface BoardDao {
@@ -12,5 +14,7 @@ public interface BoardDao {
 	public BoardVO select(int seq) throws Exception;
 	public int updateReadCount(int seq) throws Exception;
     public List<BoardVO> readReply(int seq) throws Exception;
+    public void inserFile(Map<String, Object> map) throws Exception;
+	public void insertFile(Map<String, Object> map) throws Exception;
 	
 }

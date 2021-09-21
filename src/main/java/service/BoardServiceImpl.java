@@ -1,9 +1,13 @@
 package service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import java.util.List;
+import java.util.Map;
 
 import board.BoardVO;
+import util.FileUtils;
 import board.BoardDao;
 
 @Service
@@ -29,9 +33,15 @@ public class BoardServiceImpl implements BoardService {
     	  return boardDao.update(boardVO);
       }
       @Override
-      public void write(BoardVO boardVO) throws Exception {
-    	    boardDao.insert(boardVO);
+      public void write(BoardVO boardVO, MultipartHttpServletRequest mpRequest) throws Exception {
+    	  boardDao.insert(boardVO);
+    	  
+  		  List<Map<String,Object>> list = FileUtils.parseInsertFileInfo(boardVO, mpRequest); 
+  	      int size = list.size();
+  		  for(int i=0; i<size; i++){ 
+  		  boardDao.insertFile(list.get(i)); 
       }
+      }  		  
       @Override
       public BoardVO read(int seq) throws Exception {
     	  boardDao.updateReadCount(seq);
