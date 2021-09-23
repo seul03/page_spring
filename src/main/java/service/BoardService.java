@@ -1,6 +1,7 @@
 package service;
 
 import java.util.List;
+import board.PagingVO;
 
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -13,4 +14,6 @@ public interface BoardService {
 	public void write(BoardVO boardVO, MultipartHttpServletRequest mpRequest)throws Exception;
 	public BoardVO read(int seq) throws Exception;
     public List<BoardVO> readReply(int seq) throws Exception;
+    public int countBoard() throws Exception;
+    public List<BoardVO> selectBoard(PagingVO vo) throws Exception;
 }

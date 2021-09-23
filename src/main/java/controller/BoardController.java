@@ -2,35 +2,35 @@ package controller;
 
 import java.util.List;
 
-import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import board.BoardVO;
+import board.PagingVO;
 import service.BoardService;
 
 @Controller
 @SessionAttributes("boardVO")
 public class BoardController {
+	@Autowired
 	private BoardService boardService;
 
-	public void setBoardService(BoardService boardservice) {
-		this.boardService = boardService;
-	}
-	
 	@RequestMapping(value="/list")
 	public String list(Model model) throws Exception {
 		model.addAttribute("boardList", boardService.list());
-		return "/list";
+		return "list";
 	}
 	@RequestMapping(value="/read/{seq}")
 	public String read(Model model, int seq) throws Exception {
@@ -57,7 +57,7 @@ public class BoardController {
     		return "/edit";
 	}
 	@RequestMapping(value="/edit/{seq}", method = RequestMethod.POST)
-	public String edit(@Valid @ModelAttribute BoardVO boardVO,
+	public String edit(@Validated @ModelAttribute BoardVO boardVO,
 		    BindingResult result, int pwd, 
 		    SessionStatus sessionStatus, Model model) throws Exception {
 			if(result.hasErrors()) {
@@ -103,4 +103,24 @@ public class BoardController {
 		    model.addAttribute("replyList", replyList);
      		return "/read";
 	}		
+	@RequestMapping("boardList")
+	public String boardList(PagingVO vo, Model model
+			, @RequestParam(value="now", required=false)String now
+			, @RequestParam(value="cntPage", required=false)String cntPage) throws Exception {
+		
+		int total = boardService.countBoard();
+		if (now == null && cntPage == null) {
+			now = "1";
+			cntPage = "5";
+		} else if (now == null) {
+			now = "1";
+		} else if (cntPage == null) { 
+			cntPage = "5";
+		}
+		vo = new PagingVO(total, Integer.parseInt(now), Integer.parseInt(cntPage));
+		model.addAttribute("paging", vo);
+		model.addAttribute("viewAll", boardService.selectBoard(vo));
+		return "board/boardPaging";
 }
+}
+

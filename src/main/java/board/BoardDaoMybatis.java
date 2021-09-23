@@ -69,4 +69,12 @@ public class BoardDaoMybatis implements BoardDao {
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public int countBoard() throws Exception {
+		return sqlSessionTemplate.selectOne("countBoard");
+	}
+	@Override
+	public List<BoardVO> selectBoard (PagingVO vo) throws Exception {
+		return sqlSessionTemplate.selectList("selectBoard", vo);
+	}
 }

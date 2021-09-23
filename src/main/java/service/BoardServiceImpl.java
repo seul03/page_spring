@@ -1,5 +1,6 @@
 package service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -7,12 +8,14 @@ import java.util.List;
 import java.util.Map;
 
 import board.BoardVO;
+import board.PagingVO;
 import util.FileUtils;
 import board.BoardDao;
 
 @Service
 public class BoardServiceImpl implements BoardService {
-      private BoardDao boardDao;
+    @Autowired  
+	private BoardDao boardDao;
       
       public BoardDao getBoardDao() {
     	  return boardDao;
@@ -50,5 +53,14 @@ public class BoardServiceImpl implements BoardService {
       @Override
       public List<BoardVO> readReply(int seq) throws Exception {
     	  return boardDao.readReply(seq);
+      }
+      @Override
+      public int countBoard() throws Exception{
+      	return boardDao.countBoard();
+      }
+
+      @Override
+      public List<BoardVO> selectBoard(PagingVO vo) throws Exception {
+      	return boardDao.selectBoard(vo);
       }
 }

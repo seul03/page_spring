@@ -21,6 +21,6 @@
        <mvc:default-servlet-handler />
               
        <mvc:view-resolvers>
-              <mvc:jsp prefix="/WEB-INF/view/"/>
+              <mvc:jsp prefix="/WEB-INF/view/" suffix=".jsp"/>
        </mvc:view-resolvers>
        </beans>

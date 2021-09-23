@@ -19,7 +19,7 @@ public class BoardVO {
 	private String write;
 	
 	public BoardVO(){}
-	
+
 	public BoardVO(int seq, String title, String content, String writer, int password, Timestamp regDate, int cnt,
 			String file_name, int file_size, int num, String con, String write) {
 		super();
@@ -36,8 +36,6 @@ public class BoardVO {
 		this.con = con;
 		this.write = write;
 	}
-
-
 
 	public int getSeq() {
 		return seq;
@@ -134,4 +132,6 @@ public class BoardVO {
 	public void setWrite(String write) {
 		this.write = write;
 	}
+
+
 }
