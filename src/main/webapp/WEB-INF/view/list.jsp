@@ -8,7 +8,9 @@
 <title>목록</title>
 </head>
 <body>
-
+		<label for="condition">검색조건</label>
+		<select name="condition" id="condition">
+			<option value="titlename" <c:if test="${condition eq 'title' }">selected</c:if>>제목+파일명</option>
        <table boarder="1">
               <tr>
                      <th>NO</th>
@@ -29,6 +31,8 @@
               </c:forEach>
        </table>
        <a href="<c:url value="write" />">새글</a>
+       <input type="text" name="keyword" id="keyword" placeholder="검색어 를 입력해주세요" value="${keyword}"/>
+		<button type="submit">검색</button>
        <div>
 		<ul>
 			<c:if test="${pagingVO.prev}">

@@ -11,6 +11,7 @@ import board.BoardVO;
 
 public interface BoardService {
 	public List<BoardVO> list(PagingVO pagingVO) throws Exception;
+	public int listCount() throws Exception;
 	public int delete(BoardVO boardVO) throws Exception;
 	public int edit(BoardVO boardVO) throws Exception;
 	public void write(BoardVO boardVO, MultipartHttpServletRequest mpRequest)throws Exception;

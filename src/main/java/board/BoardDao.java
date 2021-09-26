@@ -8,6 +8,7 @@ import board.BoardVO;
 import board.PagingVO;
 
 public interface BoardDao {
+	public int listCount() throws Exception;
 	public List<BoardVO> list(PagingVO pagingVO) throws Exception;
 	public int delete(BoardVO boardVO) throws Exception;
 	public int deleteAll() throws Exception;

@@ -29,6 +29,10 @@ public class BoardServiceImpl implements BoardService {
       public List<BoardVO> list(PagingVO pagingVO) throws Exception {
     	  return boardDao.list(pagingVO) ;
       }
+   	  @Override
+   	  public int listCount() throws Exception {
+  		  return boardDao.listCount();
+  	  }
       @Override
       public int delete(BoardVO boardVO) throws Exception {
     	  return boardDao.delete(boardVO);

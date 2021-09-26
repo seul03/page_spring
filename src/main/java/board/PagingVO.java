@@ -14,6 +14,7 @@ public class PagingVO {
 	private boolean prev;
 	private boolean next;
 	private int disPageNum = 10;
+	private String keyword;
 
 	public PagingVO() {
 		this.page = 1;
@@ -86,6 +87,13 @@ public class PagingVO {
 	public int getDisPageNum() {
 		return disPageNum;
 	}
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+}
 	
 	private void calcData() {
 		endPage = (int)(Math.ceil(getPage() / (double)disPageNum) * disPageNum);

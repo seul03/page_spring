@@ -40,19 +40,43 @@
         <delete id = "deleteAll">
                  DELETE FROM BOARD
         </delete>
-        <select id="countBoard" resultType="int">
-                SELECT COUNT(*) FROM BOARD
-        </select>
-        <select id="selectBoard" resultType="boardVO">
-                SELECT *
-                       FROM (
-                             SELECT ROWNUM RN, A. * 
-                                      FROM (
-                                                   SELECT *
-                                                   FROM BOARD
-                                                   ORDER BY SEQ DESC
-                                                   ) A    
-                       )
-              WHERE RN BETWEEN #{STA} AND #{END}
-        </select>
+	<select id="listCount" resultType="int">
+	<![CDATA[
+		SELECT COUNT(SEQ)
+			FROM BOARD
+		WHERE SEQ > 0
+	]]>
+	</select>
+	<select id="listPage" resultType="boardVO" parameterType="board.PagingVO">
+		SELECT  SEQ,
+		        TITLE,
+		        CONTENT,
+		        WRITER,
+		        PASSWORD,
+		        REGDATE,
+		        CNT
+		FROM   (
+		        SELECT  SEQ,
+		                TITLE,
+		                CONTENT,
+		                WRITER,
+		                PASSWORD,
+		                REGDATE,
+		                CNT,
+		                ROW_NUMBER() OVER(ORDER BY SEQ DESC) AS rNum
+		        FROM BOARD
+		        
+<choose>
+					<when test="title != null">
+						WHERE title LIKE '%'||#{title}||'%' 
+					</when>						
+			
+					<when test="writer !=null">
+						WHERE writer LIKE '%${writer}%'
+					</when>
+				</choose>
+		WHERE rNum BETWEEN #{rowStart} AND #{rowEnd}
+		ORDER BY SEQ DESC
+	</select>
+
 </mapper>

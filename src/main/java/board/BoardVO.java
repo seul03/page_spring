@@ -141,5 +141,4 @@ public class BoardVO {
 		this.uploadFile = uploadFile;
 	}
 
-
 }

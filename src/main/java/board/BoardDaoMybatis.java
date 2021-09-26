@@ -24,7 +24,11 @@ public class BoardDaoMybatis implements BoardDao {
 
 	@Override
 	public List<BoardVO> list(PagingVO pagingVO) throws Exception {
-		return sqlSessionTemplate.selectList("list");
+		return sqlSessionTemplate.selectList("listpage");
+	}
+	@Override
+	public int listCount() throws Exception {
+		return sqlSessionTemplate.selectOne("listCount");
 	}
 
 	@Override
