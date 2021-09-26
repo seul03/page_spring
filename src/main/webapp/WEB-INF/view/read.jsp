@@ -29,11 +29,15 @@
                      <th>조회수</th>
                      <td>${boardVO.cnt}</td>
               </tr>       
+              <tr>
+                    <th>첨부파일</th>
+                    <td><a method="POST" href="<%= request.getContextPath()%>/fileDown/${boardVO.seq}" ><download>${boardVO.fileName}</a></td>
+              </tr>
        </table>
        <div>
-              <a href="<c:url value="/board/edit/${boardVO.seq}"/>">수정</a>
-              <a href="<c:url value="/board/delete/${boardVO.seq}"/>">삭제</a>
-              <a href="<C:url value="/board/list"/>">목록</a>
+              <a href="<c:url value="edit/${boardVO.seq}"/>">수정</a>
+              <a href="<c:url value="delete/${boardVO.seq}"/>">삭제</a>
+              <a href="<C:url value="list"/>">목록</a>
        </div>
        <div id="reply">
        <ol class="replyList">

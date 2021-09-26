@@ -11,12 +11,12 @@
 </head>
 <body>
        <form name="deleteForm"
-       action="<c:url value="/board/delete" /> method="POST">
+       action="<c:url value="delete" /> method="POST">
        <input size="1" name="seq" value="${seq}" />
                번글을 삭제 하겠습니까? <br>
                비밀번호<input name="pwd" />
        <input type="submit" value="삭제">
-       <a herf="<c:url value="/board/read/${seq}"/>">취소</a>
+       <a herf="<c:url value="read/${seq}"/>">취소</a>
 </form>
 <div>${msg}</div>
 </body>

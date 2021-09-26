@@ -1,124 +1,114 @@
 package board;
 
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
+
 public class PagingVO {
-	private int now;
-	private int startpage;
-	private int endpage;
+	private int page;
+	private int pageNum;
+	private int rowStart;
+	private int rowEnd;
 	private int total;
-	private int cntpage = 5;
-	private int lastpage;
-	private int sta;
-	private int end;
+	private int startPage;
+	private int endPage;
+	private boolean prev;
+	private boolean next;
+	private int disPageNum = 10;
 
-	public PagingVO() {}
-
-	public PagingVO(int total, int now, int cntpage) {
-		setNow(now);
-		setCntpage(cntpage);
-		setTotal(total);
-		calcLastPage(getTotal(), getCntpage());
-		calcStartEndPage(getNow(), cntpage);
-		calcStartEnd(getNow(), getCntpage());
-	}
-	// 제일 마지막 페이지 계산
-	public void calcLastPage(int total, int cntPage) {
-		setLastpage((int) Math.ceil((double)total / (double)cntpage));
-	}
-	// 시작, 끝 페이지 계산
-	public void calcStartEndPage(int now, int cntPage) {
-		setEndpage(((int)Math.ceil((double)now / (double)cntPage)) * cntPage);
-		if (getLastpage() < getEndpage()) {
-			setEndpage(getLastpage());
-		}
-		setStartPage(getEndpage() - cntPage + 1);
-		if (getStartPage() < 1) {
-			setStartPage(1);
-		}
-	}
-	// DB 쿼리에서 사용할 start, end값 계산
-	public void calcStartEnd(int now, int cntPage) {
-		setEnd(now * cntPage);
-		setSta(getEnd() - cntPage + 1);
+	public PagingVO() {
+		this.page = 1;
+		this.pageNum = 10;
 	}
 	
-	public int getnow() {
-		return now;
+	public void setPage(int page) {
+		if(page <= 0) {
+			this.page = 1;
+			return;
+		}
+		this.page = page;
 	}
-	public void setnow(int now) {
-		this.now = now;
+	
+	public void setPageNum(int pageNum) {
+		if(pageNum <= 0 || pageNum > 100) {
+			this.pageNum = 10;
+			return;
+		}
+		this.pageNum = pageNum;
 	}
-	public int getStartPage() {
-		return startpage;
+	
+	public int getPage() {
+		return page;
 	}
-	public void setStartPage(int startPage) {
-		this.startpage = startPage;
+	
+	public int getPageStart() {
+		return (this.page - 1) * pageNum;
 	}
-
-	public int getNow() {
-		return now;
+	
+	public int getPageNum() {
+		return this.pageNum;
 	}
-
-	public void setNow(int now) {
-		this.now = now;
+	
+	public int getRowStart() {
+		rowStart = ((page - 1) * pageNum) + 1;
+		return rowStart;
 	}
-
-	public int getStartpage() {
-		return startpage;
+	
+	public int getRowEnd() {
+		rowEnd = rowStart + pageNum - 1;
+		return rowEnd;
 	}
-
-	public void setStartpage(int startpage) {
-		this.startpage = startpage;
+	
+	public void setTotal(int total) {
+		this.total = total;
+		calcData();
 	}
-
-	public int getEndpage() {
-		return endpage;
-	}
-
-	public void setEndpage(int endpage) {
-		this.endpage = endpage;
-	}
-
+	
 	public int getTotal() {
 		return total;
 	}
-
-	public void setTotal(int total) {
-		this.total = total;
-	}
-
-	public int getCntpage() {
-		return cntpage;
-	}
-
-	public void setCntpage(int cntpage) {
-		this.cntpage = cntpage;
-	}
-
-	public int getLastpage() {
-		return lastpage;
-	}
-
-	public void setLastpage(int lastpage) {
-		this.lastpage = lastpage;
-	}
-
-	public int getSta() {
-		return sta;
-	}
-
-	public void setSta(int sta) {
-		this.sta = sta;
-	}
-
-	public int getEnd() {
-		return end;
-	}
-
-	public void setEnd(int end) {
-		this.end = end;
+	
+	public int getStartPage() {
+		return startPage;
 	}
 	
+	public int getEndPage() {
+		return endPage;
+	}
 	
+	public boolean isPrev() {
+		return prev;
+	}
 	
+	public boolean isNext() {
+		return next;
+	}
 	
+	public int getDisPageNum() {
+		return disPageNum;
+	}
+	
+	private void calcData() {
+		endPage = (int)(Math.ceil(getPage() / (double)disPageNum) * disPageNum);
+		startPage = (endPage - disPageNum) + 1;
+		
+		int tempEndPage = (int)(Math.ceil(total / (double)getPageNum()));
+		if(endPage > tempEndPage) {
+			endPage = tempEndPage;
+		}
+		prev = startPage == 1 ? false : true;
+		next = endPage * getPageNum() >= total ? false : true;
+	}
+	
+	public String makeQuery(int page) {
+		UriComponents uriComponents =
+		UriComponentsBuilder.newInstance()
+							.queryParam("page", page)
+							.queryParam("perPageNum", getPageNum())
+							.build();
+		
+		return uriComponents.toUriString();
+	}
 }
+
+
+	

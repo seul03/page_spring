@@ -2,6 +2,7 @@ package board;
 
 import java.sql.Timestamp;
 import org.apache.ibatis.type.Alias;
+import org.springframework.web.multipart.MultipartFile;
 
 @Alias("BoardVO")
 public class BoardVO {
@@ -12,8 +13,9 @@ public class BoardVO {
 	private int password;
 	private Timestamp regDate;
 	private int cnt;
-	private String file_name;
-	private int file_size;
+	private String fileName;
+	private int fileSize;
+	private MultipartFile uploadFile;
 	private int num;
 	private String con;
 	private String write;
@@ -21,7 +23,7 @@ public class BoardVO {
 	public BoardVO(){}
 
 	public BoardVO(int seq, String title, String content, String writer, int password, Timestamp regDate, int cnt,
-			String file_name, int file_size, int num, String con, String write) {
+			String fileName, int fileSize, int num, String con, String write) {
 		super();
 		this.seq = seq;
 		this.title = title;
@@ -30,8 +32,8 @@ public class BoardVO {
 		this.password = password;
 		this.regDate = regDate;
 		this.cnt = cnt;
-		this.file_name = file_name;
-		this.file_size = file_size;
+		this.fileName = fileName;
+		this.fileSize = fileSize;
 		this.num = num;
 		this.con = con;
 		this.write = write;
@@ -93,20 +95,20 @@ public class BoardVO {
 		this.cnt = cnt;
 	}
 
-	public String getFile_name() {
-		return file_name;
+	public String getFileName() {
+		return fileName;
 	}
 
-	public void setFile_name(String file_name) {
-		this.file_name = file_name;
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 
-	public int getFile_size() {
-		return file_size;
+	public int getFileSize() {
+		return fileSize;
 	}
 
-	public void setFile_size(int file_size) {
-		this.file_size = file_size;
+	public void setFileSize(int fileSize) {
+		this.fileSize = fileSize;
 	}
 
 	public int getNum() {
@@ -131,6 +133,12 @@ public class BoardVO {
 
 	public void setWrite(String write) {
 		this.write = write;
+	}
+	public MultipartFile getUploadFile() {
+	    return uploadFile;
+	}
+	public void setUploadFile(MultipartFile uploadFile) {
+		this.uploadFile = uploadFile;
 	}
 
 

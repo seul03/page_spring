@@ -14,26 +14,13 @@
         
         <insert id="insert" parameterType="boardVO">
                 INSERT INTO BOARD
-                (seq, title, content, writer, password, regDate, cnt)
-                VALUES (BOARD_SEQ.nextval, #{title}, #{content}, #{writer}, #{password}, SYSDATE, 0)
+                (seq, title, content, writer, password, regDate, cnt, fileName)
+                VALUES (BOARD_SEQ.nextval, #{title}, #{content}, #{writer}, #{password}, SYSDATE, 0, #{fileName})
                 <selectKey keyProperty="seq" resultType="Integer">
                        SELECT NVL(MAX(seq), 0) FROM BOARD
                 </selectKey>
         </insert>
-        <insert id="insertFile" parameterType="hashMap">
-		INSERT INTO MP_FILE(
-			NUM,
-			SEQ,
-			FILE_NAME,
-			FILE_SIZE
-		)VALUES(
-			NUM.NEXTVAL,
-			#{SEQ},
-			#{FILE_NAME},
-			#{FILE_SIZE}
-		)
-    </insert>
-        
+       
         <update id="update" parameterType="boardVO">
                UPDATE BOARD SET title= #{title},
                content = #{content},

@@ -9,37 +9,37 @@
 <title>글 작성</title>
 </head>
 <body>
-       <form action="<c:url value="/board/write" /> " method="POST" enctype="multipart/form-data" />
+       <form action="<c:url value="write"/>" method="POST" enctype="multipart/form-data">
               <table border="1">
                      <tr>
-                            <th><form:label path="title">제목</form:label><th>
-                            <td><form:input path="title" />
+                            <th>제목</th>
+                            <td><input name="title" />
                             <form:errors path="title" /> </td>
                      </tr>
                      <tr>
-                            <th><form:label path="content">내용</form:label></th>
-                            <td><form:input path="content"/>
+                            <th>내용</th>
+                            <td><input name="content"/>
                             <form:errors path="content"/></td>
                      </tr>
                      <tr>
-                            <th><form:label path="writer">작성자</form:label></th>
-                            <td><form:input path="writer"/>
+                            <th>작성자</th>
+                            <td><input name="writer"/>
                             <form:errors path="writer"/></td>
                      </tr>
                      <tr>
-                            <th><form:label path="password">비밀번호</form:label></th>
-                            <td><form:input path="password"/>
+                            <th>비밀번호</th>
+                            <td><input name="password"/>
                             <form:errors path="password" /></td>
                      </tr>
                      <tr>
-                            <td>
-                            <input type="file" name="file">
-                            </td>
+                            <form action = "fileupload", method="post" enctype="multipart/form-data">
+                                <input type="file" name="uploadFile" placeholder="파일 선택" /><br/>
+                            </form>
                      </tr>                                
                </table>
                <div>
                        <input type="submit" value="등록">
-                       <a href ="<c:url value="/board/list" />" >목록</a>
+                       <a href ="<c:url value="list" />" >목록</a>
                </div>
                </form>
 </body>

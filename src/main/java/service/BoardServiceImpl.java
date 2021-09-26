@@ -1,15 +1,17 @@
 package service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import board.BoardVO;
 import board.PagingVO;
-import util.FileUtils;
 import board.BoardDao;
 
 @Service
@@ -24,8 +26,8 @@ public class BoardServiceImpl implements BoardService {
     	  this.boardDao = boardDao;
       }
       @Override
-      public List<BoardVO> list() throws Exception {
-    	  return boardDao.list() ;
+      public List<BoardVO> list(PagingVO pagingVO) throws Exception {
+    	  return boardDao.list(pagingVO) ;
       }
       @Override
       public int delete(BoardVO boardVO) throws Exception {
@@ -35,15 +37,11 @@ public class BoardServiceImpl implements BoardService {
       public int edit(BoardVO boardVO) throws Exception {
     	  return boardDao.update(boardVO);
       }
+                 
       @Override
       public void write(BoardVO boardVO, MultipartHttpServletRequest mpRequest) throws Exception {
     	  boardDao.insert(boardVO);
-    	  
-  		  List<Map<String,Object>> list = FileUtils.parseInsertFileInfo(boardVO, mpRequest); 
-  	      int size = list.size();
-  		  for(int i=0; i<size; i++){ 
-  		  boardDao.insertFile(list.get(i)); 
-      }
+
       }  		  
       @Override
       public BoardVO read(int seq) throws Exception {

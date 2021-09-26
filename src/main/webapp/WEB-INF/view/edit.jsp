@@ -12,29 +12,29 @@
       <form:form commandName="boardVO" method="POST">
             <table border="1">
                    <tr>
-                          <th><form:label path="title">제목</form:label></th>
-                          <td><form:input path="title" />
+                          <th>제목</th>
+                          <td><input name="title" />
                           <form:errors path="title" /> </td>
                    </tr>
                    <tr>
-                          <th><form:label path="command">내용</form:label></th>
-                          <td><form:input path="command" />
+                          <th>내용</th>
+                          <td><input name="command" />
                           <form:errors path="command" /> </td>
                    </tr>
                    <tr>
-                          <th><form:label path="writer">작성자</form:label></th>
-                          <td><form:input path="writer" />
+                          <th>작성자</th>
+                          <td><input name="writer" />
                           <form:errors path="writer" /> </td>
                    </tr>
                    <tr>
-                          <th><label for="password">비밀번호</label></th>
+                          <th>비밀번호</th>
                           <td><input type="password" id="pwd" name="pwd"
                           />${msg}</td>
                           <tr>
                </table>
                <div>
                       <input type="submit" value="등록">
-                      <a href="<c:url value="/board/list" />">목록</a>
+                      <a href="<c:url value="list" />">목록</a>
                </div>
                </form:form>
 </body>
